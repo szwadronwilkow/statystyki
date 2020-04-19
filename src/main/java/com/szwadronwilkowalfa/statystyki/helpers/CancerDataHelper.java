@@ -1,58 +1,42 @@
 package com.szwadronwilkowalfa.statystyki.helpers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szwadronwilkowalfa.statystyki.model.CancerRecord;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 public class CancerDataHelper {
 
-    public static List<CancerRecord> loadJsonDataFromUrlResource(String paginatedUrl){
-        List<CancerRecord> cancerList = new ArrayList<>();
-        RestTemplate restTemplate = new RestTemplate();
+    private static final Logger log = LoggerFactory.getLogger(CancerDataHelper.class);
 
-        String url = paginatedUrl;
-        while(true) {
-            String jsonString = restTemplate.getForObject(url, String.class);
-            JSONObject jsonObject = new JSONObject(jsonString);
-
-            JSONObject links = jsonObject.getJSONObject("links");
-            String next = links.getString("next");
-            String last = links.getString("last");
-
-            cancerList.addAll(loadPageData(restTemplate, url));
-            if (next.equals(last)) {
-                break;
-            }
-            url = next;
-            if (url.startsWith("http:")){
-                url = StringUtils.replace(url, "http:", "https:");
-            }
-        }
-        return cancerList;
-    }
-
-    private static Collection<CancerRecord> loadPageData(RestTemplate restTemplate, String nextUrl) {
-        List<CancerRecord> cancerRecords = new ArrayList<>();
-        String jsonString = restTemplate.getForObject(nextUrl, String.class);
-        JSONObject jsonObject = new JSONObject(jsonString);
-        JSONArray array = jsonObject.getJSONArray("data");
-        for (int i=0; i<array.length(); i++) {
-            try {
-                JSONObject attributes = array.getJSONObject(i).getJSONObject("attributes");
-                CancerRecord cr = new ObjectMapper().readValue(attributes.toString(), CancerRecord.class);
-                cancerRecords.add(cr);
-            } catch (JsonProcessingException e) {
-                // do nothing
+    public static List<CancerRecord> loadDataFromUrlResource(String urlString) throws IOException {
+        URL url = new URL(urlString);
+        List<CancerRecord> records = new ArrayList<>();
+        try (InputStream stream = url.openStream();
+             Scanner s = new Scanner(stream)) {
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                String[] split = line.split(";");
+                try {
+                    CancerRecord record = new CancerRecord();
+                    record.setRok(Integer.parseInt(split[0]));
+                    record.setPowiat(Integer.parseInt(split[1]));
+                    record.setPlec(split[2]);
+                    record.setIcd10(split[3]);
+                    record.setLiczba(Integer.parseInt(split[4]));
+                    records.add(record);
+                } catch (Exception e) {
+                    log.error(e.getMessage());
+                }
             }
         }
-        return cancerRecords;
+        return records;
     }
+
 }
