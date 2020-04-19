@@ -22,14 +22,9 @@ public class CancerRecord {
     @JsonIgnore
     private long id;
 
-    @JsonProperty("col1")
     int rok;
-    @JsonProperty("col2")
-    int powiat;
-    @JsonProperty("col3")
+    String teryt;
     String plec;
-    @JsonProperty("col4")
     String icd10;
-    @JsonProperty("col5")
     long liczba;
 }
