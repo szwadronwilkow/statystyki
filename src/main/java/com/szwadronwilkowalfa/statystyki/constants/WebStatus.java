@@ -1,6 +1,6 @@
 package com.szwadronwilkowalfa.statystyki.constants;
 
 public enum WebStatus {
-    READY, LOADING, ERROR
+    IDLE, LOADING, ERROR, DATA_EXISTS
 }
 

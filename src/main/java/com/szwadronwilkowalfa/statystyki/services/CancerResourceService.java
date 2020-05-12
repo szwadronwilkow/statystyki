@@ -1,4 +1,4 @@
-package com.szwadronwilkowalfa.statystyki.controllers;
+package com.szwadronwilkowalfa.statystyki.services;
 
 import com.szwadronwilkowalfa.statystyki.constants.WebStatus;
 import com.szwadronwilkowalfa.statystyki.helpers.CancerDataHelper;
@@ -8,15 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RestController
-public class CancerResourceController {
+@Service
+public class CancerResourceService {
 
-    Logger log = LoggerFactory.getLogger(CancerResourceController.class);
+    Logger log = LoggerFactory.getLogger(CancerResourceService.class);
 
     @Autowired
     CancerRecordRepository cancerRecordRepository;
@@ -24,21 +23,22 @@ public class CancerResourceController {
     @Value("${external.resource.url.cancer.data}")
     String cancerDataUrl;
 
-    WebStatus status = WebStatus.READY;
+    volatile WebStatus status = WebStatus.IDLE;
 
-    @GetMapping("/cancer/status")
-    public String getStatus() {
-        return status.toString();
+    public WebStatus getStatus() {
+        return status;
     }
 
-    @GetMapping("/cancer/clear")
     public void clear() {
         cancerRecordRepository.deleteAll();
     }
 
-    @GetMapping("/cancer/read")
-    public void loadJsonDataFromUrlResource() {
-        if (status != WebStatus.READY) {
+    public long getSize(){
+        return cancerRecordRepository.count();
+    }
+
+    public void load() {
+        if (status != WebStatus.IDLE) {
             return;
         }
         if (cancerRecordRepository.count() > 0) {
@@ -54,7 +54,7 @@ public class CancerResourceController {
             log.error(e.getMessage());
             status = WebStatus.ERROR;
         }
-        status = WebStatus.READY;
+        status = WebStatus.DATA_EXISTS;
     }
 
 }

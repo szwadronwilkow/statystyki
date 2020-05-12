@@ -1,38 +1,31 @@
-package com.szwadronwilkowalfa.statystyki.controllers;
+package com.szwadronwilkowalfa.statystyki.services;
 
 import com.szwadronwilkowalfa.statystyki.constants.WebStatus;
-import com.szwadronwilkowalfa.statystyki.helpers.CancerDataHelper;
 import com.szwadronwilkowalfa.statystyki.helpers.PowiatDataHelper;
-import com.szwadronwilkowalfa.statystyki.model.CancerRecord;
 import com.szwadronwilkowalfa.statystyki.model.Powiat;
-import com.szwadronwilkowalfa.statystyki.repositories.CancerRecordRepository;
 import com.szwadronwilkowalfa.statystyki.repositories.PowiatRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RestController
-public class PowiatController {
+@Service
+public class PowiatService {
 
-    Logger log = LoggerFactory.getLogger(PowiatController.class);
-    WebStatus status = WebStatus.READY;
+    Logger log = LoggerFactory.getLogger(PowiatService.class);
+    WebStatus status = WebStatus.IDLE;
 
     @Autowired
     PowiatRepository powiatRepository;
 
-    @GetMapping("/powiat/clear")
     public void clear() {
         powiatRepository.deleteAll();
     }
 
-    @GetMapping("/powiat/read")
-    public void loadJsonDataFromUrlResource() {
-        if (status != WebStatus.READY) {
+    public void load() {
+        if (status != WebStatus.IDLE) {
             return;
         }
         if (powiatRepository.count() > 0) {
@@ -48,7 +41,7 @@ public class PowiatController {
             log.error(e.getMessage());
             status = WebStatus.ERROR;
         }
-        status = WebStatus.READY;
+        status = WebStatus.DATA_EXISTS;
     }
 
 }
