@@ -7,7 +7,7 @@ import com.vaadin.flow.component.notification.Notification;
 public class HomeView extends Div {
 
     public HomeView(){
-        Button button = new Button("Do not press this button");
+        Button button = new Button("Do not press this button twice");
 
         button.addClickListener(clickEvent ->
                 Notification.show("Do not press this button again"));
