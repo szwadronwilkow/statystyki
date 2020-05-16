@@ -7,21 +7,19 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
+@Scope("prototype")
 public class SettingsView extends Div {
 
     private final CancerResourceService cancerResourceService;
 
-
-
     @Autowired
     public SettingsView(CancerResourceService cancerResourceService) {
         this.cancerResourceService = cancerResourceService;
-
         Span cancerDataSpan = createCancerDataSpan();
-
         this.add(cancerDataSpan);
     }
 

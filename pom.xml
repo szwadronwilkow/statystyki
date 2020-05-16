@@ -19,7 +19,7 @@
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<vaadin.version>14.1.28</vaadin.version>
+		<vaadin.version>12.0.7</vaadin.version>
 	</properties>
 
 	<repositories>
@@ -33,9 +33,6 @@
 		<repository>
 			<id>Vaadin Directory</id>
 			<url>https://maven.vaadin.com/vaadin-addons</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
 		</repository>
 	</repositories>
 
@@ -65,34 +62,7 @@
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<!-- Replace artifactId with vaadin-core to use only free components -->
-			<artifactId>vaadin</artifactId>
-			<exclusions>
-				<!-- Webjars are only needed when running in Vaadin 13 compatibility mode -->
-				<exclusion>
-					<groupId>com.vaadin.webjar</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.webjars.bowergithub.insites</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.webjars.bowergithub.polymer</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.webjars.bowergithub.polymerelements</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.webjars.bowergithub.vaadin</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.webjars.bowergithub.webcomponents</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>vaadin-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -127,7 +97,28 @@
 		<dependency>
 			<groupId>org.vaadin.tabs</groupId>
 			<artifactId>paged-tabs</artifactId>
-			<version>2.0.1</version>
+			<version>1.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.syndybat</groupId>
+			<artifactId>chartjs</artifactId>
+			<version>2.0-Stable</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bowergithub.chartjs</groupId>
+			<artifactId>chart.js</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bowergithub.moment</groupId>
+			<artifactId>moment</artifactId>
+			<version>2.23.0</version>
+		</dependency>
+		<dependency>
+			<groupId>be.ceau</groupId>
+			<artifactId>chart</artifactId>
+			<version>2.6.0</version>
 		</dependency>
 
 		<dependency>
@@ -153,18 +144,6 @@
 					<wait>500</wait>
 					<maxAttempts>240</maxAttempts>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-maven-plugin</artifactId>
-				<version>${vaadin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-frontend</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
