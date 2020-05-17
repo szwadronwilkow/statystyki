@@ -27,6 +27,7 @@ public class MainView extends VerticalLayout {
         tabs.add(new AboutView(), "About");
 
         addComponentAsFirst(tabs);
+        setSizeFull();
     }
 
 }
