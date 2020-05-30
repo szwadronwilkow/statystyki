@@ -1,12 +1,11 @@
 package com.szwadronwilkowalfa.statystyki.helpers;
 
-import com.szwadronwilkowalfa.statystyki.model.CancerRecord;
 import com.szwadronwilkowalfa.statystyki.model.Powiat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class PowiatDataHelper {
 
     private static final Logger log = LoggerFactory.getLogger(PowiatDataHelper.class);
 
-
+    @Cacheable("powiat_data")
     public static List<Powiat> loadDataFromUrlResource(String path) {
         List<Powiat> powiaty = new ArrayList<>();
 
@@ -28,8 +27,8 @@ public class PowiatDataHelper {
                 String[] split = line.split(";");
                 try {
                     Powiat powiat = new Powiat();
-                    powiat.setTeryt(split[0]);
-                    powiat.setNazwa(split[1]);
+                    powiat.setTeryt(split[0].toUpperCase());
+                    powiat.setNazwa(split[1].toUpperCase());
                     powiaty.add(powiat);
                 } catch (Exception e) {
                     log.error(e.getMessage());

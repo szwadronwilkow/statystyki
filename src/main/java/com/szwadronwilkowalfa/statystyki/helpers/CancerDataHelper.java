@@ -1,6 +1,7 @@
 package com.szwadronwilkowalfa.statystyki.helpers;
 
 import com.szwadronwilkowalfa.statystyki.model.CancerRecord;
+import com.szwadronwilkowalfa.statystyki.model.Powiat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +27,9 @@ public class CancerDataHelper {
                 try {
                     CancerRecord record = new CancerRecord();
                     record.setRok(Integer.parseInt(split[0]));
-                    record.setTeryt(split[1]);
-                    record.setPlec(split[2]);
-                    record.setIcd10(split[3]);
+                    record.setPowiat(new Powiat(split[0], null));
+                    record.setPlec(split[2].toUpperCase());
+                    record.setIcd10(split[3].toUpperCase());
                     record.setLiczba(Integer.parseInt(split[4]));
                     records.add(record);
                 } catch (Exception e) {

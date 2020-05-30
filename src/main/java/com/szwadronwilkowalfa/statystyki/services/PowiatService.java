@@ -44,4 +44,11 @@ public class PowiatService {
         status = WebStatus.DATA_EXISTS;
     }
 
+    public WebStatus getStatus() {
+        return status;
+    }
+
+    public long getSize() {
+        return powiatRepository.count();
+    }
 }
