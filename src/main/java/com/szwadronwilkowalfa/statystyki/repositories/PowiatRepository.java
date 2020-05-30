@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PowiatRepository extends CrudRepository<Powiat, Long> {
+public interface PowiatRepository extends CrudRepository<Powiat, String> {
 
 }

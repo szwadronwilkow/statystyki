@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CancerStatistics {
 
+    public static final String CANCER_YEARS = "cancer_years";
     private final CancerRecordRepository cancerRecordRepository;
 
     @Autowired
@@ -22,7 +22,7 @@ public class CancerStatistics {
         this.cancerRecordRepository = cancerRecordRepository;
     }
 
-    @Cacheable("cancer_years")
+    @Cacheable(CANCER_YEARS)
     public Optional<PlotData> getPlotDataPerYears(int... years){
         List<Integer> yearsList = null;
         if (years == null || years.length==0){
