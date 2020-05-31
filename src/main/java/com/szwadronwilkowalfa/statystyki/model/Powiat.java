@@ -1,15 +1,12 @@
 package com.szwadronwilkowalfa.statystyki.model;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "POWIAT")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -17,6 +14,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Powiat {
     @Id
+    @Column(name = "teryt")
     private String teryt;
     private String nazwa;
 }

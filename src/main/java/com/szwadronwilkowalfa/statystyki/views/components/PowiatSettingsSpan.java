@@ -22,9 +22,6 @@ public class PowiatSettingsSpan extends Span {
         loadButton.addClickListener(clickEvent ->
         {
             switch (powiatService.getStatus()) {
-                case ERROR:
-                    Notification.show("Error occurred...");
-                    break;
                 case LOADING:
                     Notification.show("Loading teryt data...");
                     break;
@@ -33,8 +30,10 @@ public class PowiatSettingsSpan extends Span {
                     break;
                 case IDLE:
                     Notification.show("Loading teryt data start...");
-                    Thread async = new Thread(() -> powiatService.load());
-                    async.start();
+                    getUI().get().access(() -> {
+                        powiatService.load();
+                        Alert.info("Done loading Teryt data");
+                    });
                     break;
             }
         });

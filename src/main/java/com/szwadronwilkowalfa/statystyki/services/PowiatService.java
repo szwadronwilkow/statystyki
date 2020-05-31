@@ -39,7 +39,7 @@ public class PowiatService {
             powiatRepository.saveAll(cancerRecords);
         } catch (Exception e) {
             log.error(e.getMessage());
-            status = WebStatus.ERROR;
+            status = WebStatus.IDLE;
         }
         status = WebStatus.DATA_EXISTS;
     }
@@ -50,5 +50,13 @@ public class PowiatService {
 
     public long getSize() {
         return powiatRepository.count();
+    }
+
+    public List<Powiat> getLands() {
+        return powiatRepository.findLands();
+    }
+
+    public Powiat findByName(String name) {
+        return powiatRepository.findByNazwa(name);
     }
 }

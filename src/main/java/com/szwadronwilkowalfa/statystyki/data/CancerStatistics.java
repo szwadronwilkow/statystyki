@@ -1,6 +1,7 @@
 package com.szwadronwilkowalfa.statystyki.data;
 
 import com.szwadronwilkowalfa.statystyki.model.CancerRecord;
+import com.szwadronwilkowalfa.statystyki.model.Powiat;
 import com.szwadronwilkowalfa.statystyki.repositories.CancerRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -53,4 +54,23 @@ public class CancerStatistics {
         return BigDecimal.ZERO;
     }
 
+    public Optional<PlotData> getPlotDataPerYearsPerLand(Powiat powiat) {
+        List<Integer> yearsList = cancerRecordRepository.findDistinctRok();
+        if (CollectionUtils.isEmpty(yearsList)) {
+            return Optional.empty();
+        }
+        PlotData plotData = new PlotData("Cancer cases per " + powiat.getNazwa());
+        for (int year : yearsList) {
+            List<CancerRecord> cancerRecords = cancerRecordRepository.findByRokAndPowiat(year, powiat);
+            if (CollectionUtils.isEmpty(cancerRecords)) {
+                continue;
+            }
+            plotData.addLabel(String.valueOf(year));
+            plotData.addValue(aggregateByLiczba(cancerRecords));
+        }
+        if (plotData.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(plotData);
+    }
 }

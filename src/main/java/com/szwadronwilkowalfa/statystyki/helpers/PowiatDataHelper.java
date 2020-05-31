@@ -23,16 +23,11 @@ public class PowiatDataHelper {
              Scanner s = new Scanner(stream)) {
             while (s.hasNextLine()) {
                 String line = s.nextLine();
-                line = line.substring(2, line.length()-1);
                 String[] split = line.split(";");
-                try {
-                    Powiat powiat = new Powiat();
-                    powiat.setTeryt(split[0].toUpperCase());
-                    powiat.setNazwa(split[1].toUpperCase());
-                    powiaty.add(powiat);
-                } catch (Exception e) {
-                    log.error(e.getMessage());
-                }
+                Powiat powiat = new Powiat();
+                powiat.setTeryt(split[0].trim());
+                powiat.setNazwa(split[1].trim());
+                powiaty.add(powiat);
             }
         } catch (Exception e) {
             e.printStackTrace();

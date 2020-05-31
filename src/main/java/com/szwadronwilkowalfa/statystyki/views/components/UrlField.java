@@ -25,19 +25,25 @@ public class UrlField extends Span {
         this.urlService = urlService;
         this.urlType = urlType;
 
-        label = new Label("Url: ");
+        label = new Label(" Url: ");
         textField = new TextField();
         saveButton = new Button("Save");
         reloadButton = new Button("Reload");
         
         initSaveButton();
         initReloadButton();
+        initTextField();
         
         add(label);
         add(textField);
         add(saveButton);
         add(reloadButton);
 
+    }
+
+    private void initTextField() {
+        textField.setValue(urlService.findByNameOrDefault(UrlType.CANCER));
+        textField.setWidth("10cm");
     }
 
     private void initReloadButton() {
@@ -53,7 +59,7 @@ public class UrlField extends Span {
             if(URLValidator.isValid(url)){
                 urlService.update(urlType, url);
             } else {
-                new ErrorNotification(urlType + " Url is not valid!");
+                Alert.error(urlType + " Url is not valid!");
             }
         });
     }

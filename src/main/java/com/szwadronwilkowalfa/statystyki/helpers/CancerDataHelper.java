@@ -27,7 +27,7 @@ public class CancerDataHelper {
                 try {
                     CancerRecord record = new CancerRecord();
                     record.setRok(Integer.parseInt(split[0]));
-                    record.setPowiat(new Powiat(split[0], null));
+                    record.setPowiat(new Powiat(split[1].substring(0,2), null));
                     record.setPlec(split[2].toUpperCase());
                     record.setIcd10(split[3].toUpperCase());
                     record.setLiczba(Integer.parseInt(split[4]));
