@@ -71,7 +71,6 @@ public class CancerDataSpan extends Span {
                     Alert.error("Loading in progress...");
                     break;
                 case DATA_EXISTS:
-                    cancerService.evictCache();
                     Alert.error("Data already loaded.");
                     break;
                 case IDLE:

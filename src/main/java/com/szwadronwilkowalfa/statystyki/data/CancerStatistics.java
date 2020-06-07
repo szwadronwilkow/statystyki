@@ -32,7 +32,7 @@ public class CancerStatistics {
                 return Optional.empty();
             }
         }
-        PlotData plotData = new PlotData("Cancer cases");
+        PlotData plotData = new PlotData("Cancer cases in Poland");
         for (int year : yearsList) {
             List<CancerRecord> cancerRecords = cancerRecordRepository.findByRok(year);
             if (CollectionUtils.isEmpty(cancerRecords)) {

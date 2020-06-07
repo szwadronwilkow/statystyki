@@ -1,17 +1,14 @@
 package com.szwadronwilkowalfa.statystyki.views;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-public class HomeView extends Div {
+public class HomeView extends VerticalLayout {
 
     public HomeView(){
-        Button button = new Button("Do not press this button twice");
-
-        button.addClickListener(clickEvent ->
-                Notification.show("Do not press this button again"));
-
-        this.add(button);
+        Label label1 = new Label("Adrian Cieślik");
+        Label label2 = new Label("Arkadiusz Dziób");
+        Label label3 = new Label("Rafał Balcerzak");
+        this.add(label1, label2, label3);
     }
 }
