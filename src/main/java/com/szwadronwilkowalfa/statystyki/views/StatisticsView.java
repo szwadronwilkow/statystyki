@@ -137,6 +137,7 @@ public class StatisticsView extends VerticalLayout {
         div.add(chart);
         div.setWidth("50%");
         return div;
+        //test
     }
 
 }
