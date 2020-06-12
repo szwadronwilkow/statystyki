@@ -53,6 +53,9 @@ public class CancerStatistics {
         }
         return BigDecimal.ZERO;
     }
+    public List<CancerRecord> findAll(){
+        return (List<CancerRecord>) cancerRecordRepository.findAll();
+    }
 
     public Optional<PlotData> getPlotDataPerYearsPerLand(Powiat powiat) {
         List<Integer> yearsList = cancerRecordRepository.findDistinctRok();
