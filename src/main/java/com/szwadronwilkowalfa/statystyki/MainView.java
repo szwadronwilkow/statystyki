@@ -9,8 +9,10 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.tabs.PagedTabs;
 
-@Route("")
+@Route(MainView.ROUTE)
 public class MainView extends VerticalLayout {
+
+    public static final String ROUTE = "main";
 
     private final SettingsView settingsView;
     private final StatisticsView statisticsView;
