@@ -1,4 +1,4 @@
-package com.szwadronwilkowalfa.statystyki;
+package com.szwadronwilkowalfa.statystyki.security;
 
 import com.vaadin.flow.server.ServletHelper;
 import com.vaadin.flow.shared.ApplicationConstants;

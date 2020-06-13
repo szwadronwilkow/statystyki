@@ -1,6 +1,8 @@
-package com.szwadronwilkowalfa.statystyki;
+package com.szwadronwilkowalfa.statystyki.security;
 
 import com.szwadronwilkowalfa.statystyki.repositories.PersonRepository;
+import com.szwadronwilkowalfa.statystyki.security.SecurityUtils;
+import com.szwadronwilkowalfa.statystyki.views.SettingsView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
